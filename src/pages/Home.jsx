@@ -1,16 +1,18 @@
 import { products } from "../data/products";
-import { categories as allCategories } from "../data/categories";
-import ProductList from "../components/ProductList.jsx";
+
 import { useState } from "react";
+/* import { categories as allCategories } from "../data/categories"; */
+import ProductList from "../components/ProductList.jsx";
+/* import { useState } from "react"; */
 import "../index.css";
 
 function Home() {
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
-  const [sortBy, setSortBy] = useState("default");
-
+  /* const [search, setSearch] = useState(""); */
+  /* const [selectedCategory, setSelectedCategory] = useState("Todos"); */
+ /*  const [sortBy, setSortBy] = useState("default");
+ */
   // Empieza con todos los productos y aplica filtros
-  let filteredProducts = products.slice();
+  /* let filteredProducts = products.slice();
 
   if (search) {
     filteredProducts = filteredProducts.filter((product) =>
@@ -23,10 +25,10 @@ function Home() {
     filteredProducts = filteredProducts.filter(
       (product) => product.category === selectedCategory
     );
-  }
+  } */
 
   // Ordenamientos
-  let sortedProducts = filteredProducts.slice();
+  /* let sortedProducts = filteredProducts.slice();
   if (sortBy === "az") {
     sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
   } else if (sortBy === "newest") {
@@ -37,9 +39,9 @@ function Home() {
     sortedProducts.sort((a, b) => a.price - b.price);
   } else if (sortBy === "high") {
     sortedProducts.sort((a, b) => b.price - a.price);
-  }
+  } */
 
-  
+   const [search, setSearch] = useState("");
   const featuredProducts = products.filter((product) => product.featured);
 
   const newProducts = products
@@ -47,9 +49,9 @@ function Home() {
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3);
 
-  const hasResults = filteredProducts.length > 0;
+/*   const hasResults = filteredProducts.length > 0;
 
-  const categories = allCategories;
+  const categories = allCategories; */
 
   return (
     <main>
@@ -59,6 +61,16 @@ function Home() {
             src="/images/logoEncabezado.svg"
             alt="Logo Vinyl Corner"
             className="hero-logo"
+          />
+
+           <input
+            className="search-input"
+            type="text"
+            placeholder="Buscar productos..."
+            name="search"
+            id="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
 
         
@@ -73,8 +85,9 @@ function Home() {
           <a className="button" href="#">Suscríbete a novedades</a>
         </div>
       </section>
+     
 
-      <section className="catalog-section">
+      {/* <section className="catalog-section">
         <div className="container">
           <input
             className="search-input"
@@ -125,7 +138,7 @@ function Home() {
           )}
           {hasResults && <ProductList products={sortedProducts} />}
         </div>
-      </section>
+      </section> */}
 
       <section className="featured-section">
         <div className="container">

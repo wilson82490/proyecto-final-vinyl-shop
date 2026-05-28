@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
@@ -18,7 +18,10 @@ const ProductCard = ({ product }) => {
       <div className="card-buttons">
         <button className="fav-btn">❤</button>
         <button className="add-btn">AÑADIR AL CARRITO</button>
+         <Link to={`/vinilos/${product.id}`} className="detail-btn">Ver detalles</Link>
       </div>
+
+     
     </div>
   );
 };

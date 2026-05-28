@@ -426,6 +426,27 @@ img {
   background: #428ec7;
 }
 
+/* BOTON DETALLES */
+
+
+.detail-btn {
+  background: #5fa9e4;
+  border: none;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.detail-btn:hover {
+  background: #428ec7;
+}
+
+.add-btn:hover {
+  background: #428ec7;
+}
 
 
 /* MEDIA QUERIES */
