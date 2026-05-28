@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
+  <rect width="100%" height="100%" fill="#123f2d"/>
+  <text x="50%" y="45%" font-size="34" fill="#fff" text-anchor="middle" font-family="Tahoma">Blue Train</text>
+  <text x="50%" y="55%" font-size="18" fill="#cfe9dd" text-anchor="middle" font-family="Tahoma">John Coltrane · 1958</text>
+</svg>

@@ -15,7 +15,7 @@ body {
 
   background:
     linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
-    url("/images/background.jpg");
+    url("/images/background.svg");
 
   background-size: cover;
   background-position: center;
@@ -109,13 +109,13 @@ img {
   border-radius: 33px; 
 }
 
-.hero-label {
+/* .hero-label {
   display: block;
   font-size: 18px;
   color: #cab03b;
   margin-bottom: 10px;
   letter-spacing: 1px;
-}
+} */
 
 .hero-title {
   font-size: 32px;
@@ -136,7 +136,7 @@ img {
 .button {
   display: inline-block;
   padding: 12px 24px;
-  background: #c5a100;
+  background: #6d59ab;
   color: #0d0d0d;
   border-radius: 6px;
   font-weight: 600;
@@ -145,7 +145,7 @@ img {
 }
 
 .button:hover {
-  background: #e0b800;
+  background: #334786;
 }
 
 
@@ -206,6 +206,33 @@ img {
   color: #fff;
 }
 
+.product-card .artist {
+  text-align: center;
+  margin: 0 0 6px;
+  color: #e6e6e6;
+  font-weight: 600;
+}
+
+.product-card .label {
+  text-align: center;
+  color: #bfbfbf;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.stock {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
 .product-card p {
   margin: 0 0 8px;
   color: #d1d5db;
@@ -218,7 +245,7 @@ img {
 .product-card .price {
   font-size: 20px;
   font-weight: bold;
-  color: #c5a100;
+  color: #6dd3ff;
   margin: 10px 0;
   text-align: center;   /* CENTRADO */
   display: block;
@@ -302,11 +329,11 @@ img {
 
   text-align: center;
   font-size: 28px;
-  color: #c5a100;
+  color: #6dd3ff;
   background: rgba(5, 4, 0, 0.638);
   padding: 14px 0;
   border-radius: 10px;
-  border: 1px solid #c5a1006b;
+  border: 1px solid rgba(109, 211, 255, 0.44);
   margin-bottom: 35px;
   backdrop-filter: blur(4px);
 }
@@ -368,9 +395,9 @@ img {
 
 /* BOTÓN DE FAVORITOS */
 .fav-btn {
-  background: rgba(197, 161, 0, 0.15);
-  border: 1px solid #c5a10055;
-  color: #c5a100;
+  background: rgba(95, 169, 228, 0.18);
+  border: 1px solid rgba(95, 169, 228, 0.45);
+  color: #5fa9e4;
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
@@ -379,15 +406,15 @@ img {
 }
 
 .fav-btn:hover {
-  background: rgba(197, 161, 0, 0.35);
-  border-color: #c5a100;
+  background: rgba(95, 169, 228, 0.35);
+  border-color: #5fa9e4;
 }
 
 /* BOTÓN AÑADIR AL CARRITO */
 .add-btn {
-  background: #c5a100;
+  background: #5fa9e4;
   border: none;
-  color: #0d0d0d;
+  color: #ffffff;
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
@@ -396,7 +423,7 @@ img {
 }
 
 .add-btn:hover {
-  background: #e0b800;
+  background: #428ec7;
 }
 
 

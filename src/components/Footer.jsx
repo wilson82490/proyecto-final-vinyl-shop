@@ -3,7 +3,7 @@ function Footer() {
   
       <footer className="site-footer">
       <div className="container">
-            <p>Proyecto final - Web development</p>
+            <p>Tienda de Vinilos · © 2024 · Venta de discos y coleccionables</p>
         </div>
       </footer>
     

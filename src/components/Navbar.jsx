@@ -5,19 +5,19 @@ function Navbar() {
     <nav className="navbar">
 
        <div className="navbar-logo">
-        <img src="/images/logoNavbar.png" alt="Logo" />
+        <img src="/images/logoNavbar.svg" alt="Logo Vinilos" />
       </div>
 
       <div className="navbar-left">
-        <a href="#">Home</a>
-        <a href="#">Favoritos</a>
-        <a href="#">Mis Productos</a>
-        <a href="#">Perfil</a>
+        <a href="/">Inicio</a>
+        <a href="/discos">Discos</a>
+        <a href="#">Géneros</a>
+        <a href="#">Novedades</a>
       </div>
 
       <div className="navbar-right">
-        <a href="#">Regístrate</a>
-        <a href="#" className="btn-login">Login</a>
+        <a href="#">Registro</a>
+        <a href="#" className="btn-login">Entrar</a>
       </div>
     </nav>
   );

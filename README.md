@@ -1,26 +1,26 @@
-# frontend - Proyecto final 
+# Vinyl Corner - Tienda de Vinilos
 
-Mi proyecto.....
+Proyecto frontend que muestra un catálogo de discos de vinilo: reediciones, singles y ediciones para coleccionistas.
 
-## Descripcion
+## Descripción
 
-Aplicacion para ....
+Interfaz de ejemplo para navegar discos por género, ver productos destacados y nuevos lanzamientos.
 
-## Tecnologias
+## Tecnologías
 
 - React
 - Vite
 - CSS
 - JavaScript
-- JSX
 
-## Cómo ejecutrar el proyecto
+## Cómo ejecutar el proyecto
 
 ```shell
 npm install
 npm run dev
 ```
-## Autor 
- - Sergio Pérez
- - Sergio_01_3@hotmail.com
+
+## Autor
+- Sergio Pérez
  
+

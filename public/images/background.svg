@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#0b0f1a" />
+      <stop offset="100%" stop-color="#2b1b0f" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)" />
+  <g fill-opacity="0.08" fill="#ffffff">
+    <circle cx="300" cy="200" r="300" />
+    <circle cx="1200" cy="700" r="350" />
+  </g>
+  <text x="50%" y="45%" text-anchor="middle" fill="#c9b37a" font-family="Georgia, serif" font-size="48">Vinyl Corner</text>
+  <text x="50%" y="53%" text-anchor="middle" fill="#e8dcc3" font-family="Georgia, serif" font-size="20">Tienda de vinilos · Discos, reediciones y coleccionables</text>
+</svg>

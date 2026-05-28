@@ -1,4 +1,5 @@
 import { products } from "../data/products";
+import { categories as allCategories } from "../data/categories";
 import ProductList from "../components/ProductList.jsx";
 import { useState } from "react";
 import "../index.css";
@@ -8,84 +9,68 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [sortBy, setSortBy] = useState("default");
 
-  let filteredProducts = [];
+  // Empieza con todos los productos y aplica filtros
+  let filteredProducts = products.slice();
 
-  if (search || selectedCategory !== "Todos") {
-    filteredProducts = products.filter((product) => {
-      const matchesSearch = product.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
-
-      const matchesCategory =
-        selectedCategory == "Todos" || product.category === selectedCategory;
-
-      return matchesSearch && matchesCategory;
-    });
-  }
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy == "az") {
-      if (a.title < b.title) return -1;
-      if (a.title > b.title) return 1;
-      return 0;
-    }
-
-    if (sortBy === "newest") {
-      return b.createdAt - a.createdAt;
-    }
-
-    if (sortBy === "oldest") {
-      return a.createdAt - b.createdAt;
-    }
-  });
-
-  if (sortBy === "low") {
-    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+  if (search) {
+    filteredProducts = filteredProducts.filter((product) =>
+      product.name.toLowerCase().includes(search.toLowerCase()) ||
+      (product.artist && product.artist.toLowerCase().includes(search.toLowerCase()))
+    );
   }
 
-  if (sortBy === "high") {
-    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+  if (selectedCategory && selectedCategory !== "Todos") {
+    filteredProducts = filteredProducts.filter(
+      (product) => product.category === selectedCategory
+    );
+  }
+
+  // Ordenamientos
+  let sortedProducts = filteredProducts.slice();
+  if (sortBy === "az") {
+    sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortBy === "newest") {
+    sortedProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else if (sortBy === "oldest") {
+    sortedProducts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  } else if (sortBy === "low") {
+    sortedProducts.sort((a, b) => a.price - b.price);
+  } else if (sortBy === "high") {
+    sortedProducts.sort((a, b) => b.price - a.price);
   }
 
   
   const featuredProducts = products.filter((product) => product.featured);
 
-  const newProducts = products.slice(0, 3); // 3 primeros
+  const newProducts = products
+    .slice()
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 3);
 
   const hasResults = filteredProducts.length > 0;
 
-  const categories = [
-    "Todos",
-    ...new Set(products.map((product) => product.category)),
-  ];
+  const categories = allCategories;
 
   return (
     <main>
       <section className="hero">
         <div className="container">
           <img
-            src="/images/logoEncabezado.png"
-            alt="Logo Tradeon"
+            src="/images/logoEncabezado.svg"
+            alt="Logo Vinyl Corner"
             className="hero-logo"
           />
 
-          <span className="hero-label">
-            ...El lugar donde tus productos encuentran un nuevo dueño...
-          </span>
+        
 
-          <h1 className="hero-title">
-            Compra y vende de forma rápida, segura y sin complicaciones.
-          </h1>
+          <h1 className="hero-title">Vinyl Corner — Tu tienda de discos</h1>
 
           <p className="hero-description">
-            Encuentra de todo y da una segunda vida a tus productos.
+            Compra vinilos originales, reediciones y joyas para coleccionistas.
           </p>
 
-          <a className="button" href="#">
-            Ver productos
-          </a>
-          <a className="button" href="#">
-            Vende ahora
-          </a>
+          <a className="button" href="#">Explorar discos</a>
+          <a className="button" href="#">Suscríbete a novedades</a>
         </div>
       </section>
 
@@ -144,7 +129,7 @@ function Home() {
 
       <section className="featured-section">
         <div className="container">
-          <h2>· Productos destacados ·</h2>
+          <h2>· Vinilos Destacados·</h2>
 
           <ProductList products={featuredProducts} />
         </div>
@@ -152,7 +137,7 @@ function Home() {
 
       <section className="featured-section">
         <div className="container">
-          <h2>· Nuevos productos ·</h2>
+          <h2>· Novedades ·</h2>
 
           <ProductList products={newProducts} />
         </div>
