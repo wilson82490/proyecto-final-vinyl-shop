@@ -8,10 +8,10 @@ import "../index.css";
 
 function Home() {
   /* const [search, setSearch] = useState(""); */
-  /* const [selectedCategory, setSelectedCategory] = useState("Todos"); */
+  /* const [selectedCategory, setSelectedCategory] = useState("Vinilo"); */
  /*  const [sortBy, setSortBy] = useState("default");
  */
-  // Empieza con todos los productos y aplica filtros
+  // Empieza con vinilos y aplica filtros
   /* let filteredProducts = products.slice();
 
   if (search) {
@@ -21,7 +21,7 @@ function Home() {
     );
   }
 
-  if (selectedCategory && selectedCategory !== "Todos") {
+  if (selectedCategory && selectedCategory !== "Vinilo") {
     filteredProducts = filteredProducts.filter(
       (product) => product.category === selectedCategory
     );
@@ -81,8 +81,10 @@ function Home() {
             Compra vinilos originales, reediciones y joyas para coleccionistas.
           </p>
 
-          <a className="button" href="#">Explorar discos</a>
-          <a className="button" href="#">Suscríbete a novedades</a>
+          <div className="hero-actions">
+            <a className="button" href="#">Explorar discos</a>
+            <a className="button" href="#">Suscríbete a novedades</a>
+          </div>
         </div>
       </section>
      

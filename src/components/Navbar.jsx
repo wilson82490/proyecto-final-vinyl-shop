@@ -1,4 +1,6 @@
 import "./Navbar.css";
+import { Link } from "react-router-dom";
+
 
 function Navbar() {
   return (
@@ -18,6 +20,7 @@ function Navbar() {
       <div className="navbar-right">
         <a href="#">Registro</a>
         <a href="#" className="btn-login">Entrar</a>
+        <Link to="/admin" className="btn-admin">Admin</Link>
       </div>
     </nav>
   );

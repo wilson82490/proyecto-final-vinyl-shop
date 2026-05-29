@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
       <h3>{product.name}</h3>
       <h4 className="artist">{product.artist} ({product.year})</h4>
       <p className="label">{product.label} · {product.format}</p>
-      <p>{product.description}</p>
+      
 
       <div className="card-meta">
         <span className="price">{product.price} €</span>

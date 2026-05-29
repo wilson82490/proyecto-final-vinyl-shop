@@ -1,5 +1,5 @@
 export const categories = [
-  "Todos",
+  "Vinilo",
   "Rock",
   "Jazz",
   "Pop",

@@ -8,11 +8,11 @@ import ProductList from "../components/ProductList.jsx";
 
 function ViniloPage() {
     const [search, setSearch] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("Todos");
+    const [selectedCategory, setSelectedCategory] = useState("Vinilo");
     const [sortBy, setSortBy] = useState("default");
 
 
-    // Empieza con todos los productos y aplica filtros
+    // Empieza con vinilos y aplica filtros
       let filteredProducts = products.slice();
     
       if (search) {
@@ -22,7 +22,7 @@ function ViniloPage() {
         );
       }
     
-      if (selectedCategory && selectedCategory !== "Todos") {
+      if (selectedCategory && selectedCategory !== "Vinilo") {
         filteredProducts = filteredProducts.filter(
           (product) => product.category === selectedCategory
         );
