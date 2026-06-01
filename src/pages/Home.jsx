@@ -3,6 +3,7 @@ import { products } from "../data/products";
 import { useState } from "react";
 /* import { categories as allCategories } from "../data/categories"; */
 import ProductList from "../components/ProductList.jsx";
+import SearchBox from "../components/searchbox.jsx";
 /* import { useState } from "react"; */
 import "../index.css";
 
@@ -62,8 +63,8 @@ function Home() {
             alt="Logo Vinyl Corner"
             className="hero-logo"
           />
-
-           <input
+          <SearchBox />
+         {/*   <input
             className="search-input"
             type="text"
             placeholder="Buscar productos..."
@@ -71,7 +72,9 @@ function Home() {
             id="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-          />
+          /> */}
+
+          
 
         
 

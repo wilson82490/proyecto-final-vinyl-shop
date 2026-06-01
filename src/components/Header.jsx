@@ -1,5 +1,6 @@
 import Navbar from "./Navbar";
 
+
 function Header() {
   return (
     <>
@@ -8,6 +9,7 @@ function Header() {
           <Navbar />
         </div>
       </header>
+      
     </>
   );
 }

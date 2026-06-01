@@ -529,7 +529,93 @@ img {
  
 
 }
+
+.vinilo-filter {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
  
+
+/* .search-box{
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-box input {
+  width: 100%;
+  display: block;
+  padding: 12px 16px 12px 40px; 
+  border: 1px solid #444; 
+  border-radius: 8px;
+  background-color: #0d0d0d; 
+  background-image: url('https://cdn-icons-png.flaticon.com/512/149/149852.png');
+  background-size: 18px;
+  background-position: 12px center;
+  background-repeat: no-repeat;
+  color: #f9f3e6; 
+  font-size: 16px;
+  transition: all 0.25s ease;
+} */
+
+
+
+
+/* Contenedor que ocupe todo el ancho de la ventana */
+.search-box.full-width {
+  width: 100%;
+  max-width: 100%; /* evita límites impuestos por otros padres */
+  padding: 0;       /* opcional: quitar padding si lo hubiera en el contenedor padre */
+  margin: 0;          /* opcional: para evitar márgenes no deseados */
+}
+
+/* Input que se extienda a todo el ancho disponible */
+.search-box-input {
+  width: 100%;
+  display: block;
+  padding: 12px 16px 12px 40px; 
+  border: 1px solid #444; 
+  border-radius: 8px;
+  background-color: #0d0d0d; 
+  background-image: url('https://cdn-icons-png.flaticon.com/512/149/149852.png');
+  background-size: 18px;
+  background-position: 12px center;
+  background-repeat: no-repeat;
+  color: #f9f3e6; 
+  font-size: 16px;
+  transition: all 0.25s ease;
+}
+
+/* Opcional: limites visuales de la lista de resultados */
+.search-box-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background-color: #969bb4;
+  border: 1px solid #697180;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 50;
+}
+.search-box-results-item {
+ display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+}
+
+.search-box-results-item:hover {
+  background-color: #697180;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.search-box-results span {
+  font-size: 14px;
+  color: #d1d5db;
+}
 
 
 /* MEDIA QUERIES */
@@ -563,8 +649,12 @@ img {
     grid-template-columns: repeat(3, 1fr);
   }
 
-}
+  .vinilo-filter {
+    grid-template-columns: 2fr 1fr 1fr ;
+    align-items: end;
 
+}
+}
 @media (min-width: 1024px) {
   .product-card {
     width: calc(33.33% - 16px);
