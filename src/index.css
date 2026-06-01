@@ -617,6 +617,13 @@ img {
   color: #d1d5db;
 }
 
+.search-box-results strong {
+  color: #413606;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 /* MEDIA QUERIES */
 

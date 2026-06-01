@@ -1,6 +1,6 @@
 import { products } from "../data/products";
 
-import { useState } from "react";
+/* import { useState } from "react"; */
 /* import { categories as allCategories } from "../data/categories"; */
 import ProductList from "../components/ProductList.jsx";
 import SearchBox from "../components/searchbox.jsx";
@@ -13,9 +13,9 @@ function Home() {
  /*  const [sortBy, setSortBy] = useState("default");
  */
   // Empieza con vinilos y aplica filtros
-  /* let filteredProducts = products.slice();
+  /* let filteredProducts = products.slice(); */
 
-  if (search) {
+/*   if (search) {
     filteredProducts = filteredProducts.filter((product) =>
       product.name.toLowerCase().includes(search.toLowerCase()) ||
       (product.artist && product.artist.toLowerCase().includes(search.toLowerCase()))
@@ -26,7 +26,7 @@ function Home() {
     filteredProducts = filteredProducts.filter(
       (product) => product.category === selectedCategory
     );
-  } */
+  }  */
 
   // Ordenamientos
   /* let sortedProducts = filteredProducts.slice();
@@ -42,7 +42,7 @@ function Home() {
     sortedProducts.sort((a, b) => b.price - a.price);
   } */
 
-   const [search, setSearch] = useState("");
+   /* const [search, setSearch] = useState(""); */
   const featuredProducts = products.filter((product) => product.featured);
 
   const newProducts = products
@@ -63,7 +63,7 @@ function Home() {
             alt="Logo Vinyl Corner"
             className="hero-logo"
           />
-          <SearchBox />
+          <SearchBox products={products}/>
          {/*   <input
             className="search-input"
             type="text"
