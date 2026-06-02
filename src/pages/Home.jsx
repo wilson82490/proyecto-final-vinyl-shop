@@ -59,7 +59,7 @@ function Home() {
       <section className="hero">
         <div className="container">
           <img
-            src="/images/logoEncabezado.svg"
+            src="/images/logo-header.png"
             alt="Logo Vinyl Corner"
             className="hero-logo"
           />

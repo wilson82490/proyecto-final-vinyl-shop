@@ -25,22 +25,12 @@ export const router = createBrowserRouter([
             }
             ,
             {
-                path: "/discos",
+                path: "discos",
                 element: <ViniloPage />
             }
             ,
-           /*  {
-                path: "/discos/:id",
-                element: <ViniloDetailPage />
-            } 
-            ,*/
-           /*  {
-                path: "/vinilos",
-                element: <ViniloPage />
-            }
-            , */
             {
-                path: "/vinilos/:id",
+                path: "vinilos/:id",
                 element: <ViniloDetailPage />
             }
             ,

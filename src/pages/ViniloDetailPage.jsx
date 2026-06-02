@@ -11,8 +11,7 @@ import { products } from "../data/products";
 function ViniloDetailPage() {
   const { id } = useParams();
 
-  const vinilo = products.find((v) => v.id == id); // 1 == '1'
-  //   const movie = movies.find((m) => m.id === Number(id)); // 1 === 1
+  const vinilo = products.find((v) => v.id === Number(id)); // Comparación segura de tipos
 
   if (!vinilo) {
     return (

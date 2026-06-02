@@ -49,9 +49,9 @@ function SearchBox({ products }) {
 
       {search.trim() != '' && (
       <div className="search-box-results">
-        {results.map((product) => (
-          <Link className="search-box-results-item" to={`/products/${product.id}`} key={product.id}>
-            <strong>{product.name}</strong> -{ product.artist}
+        {results.map((vinilo) => (
+          <Link className="search-box-results-item" to={`/vinilos/${vinilo.id}`} key={vinilo.id}>
+            <strong>{vinilo.name}</strong> - {vinilo.artist}
           </Link>
         ))}
       </div>
@@ -65,14 +65,14 @@ export default SearchBox; */
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-function SearchBox({ products = [] }) { // Añadido valor por defecto para evitar errores si products es undefined
+function SearchBox({ products }) { // Recibe products de Home.jsx
   const [search, setSearch] = useState("");
 
   const normalizedSearch = search.toLowerCase().trim();
 
-  const results = products.filter((product) => {
-    const name = product.name?.toLowerCase() || ""; // Uso de optional chaining para seguridad
-    const category = product.category?.toLowerCase() || "";
+  const results = products.filter((vinilo) => {
+    const name = vinilo.name?.toLowerCase() || ""; // Uso de optional chaining para seguridad
+    const category = vinilo.category?.toLowerCase() || "";
 
     return name.includes(normalizedSearch) || category.includes(normalizedSearch);
   }).slice(0, 3); // Limitar a los 3 primeros resultados
@@ -89,13 +89,15 @@ function SearchBox({ products = [] }) { // Añadido valor por defecto para evita
 
       {search.trim() !== '' && (
         <div className="search-box-results">
-          {results.map((product) => (
+          {results.map((vinilo) => (
             <Link 
+              key={vinilo.id}
+              onClick={() => setSearch("")} // Limpiar el campo de búsqueda al hacer clic en un resultado
               className="search-box-results-item" 
-              to={`/products/${product.id}`} 
-              /* key={product.id} */
+              to={`/vinilos/${vinilo.id}`} 
             >
-              <strong>{product.name}</strong> - {product.artist}
+              <strong>{vinilo.name}</strong> 
+              <span>{vinilo.artist} - {vinilo.category}</span>
             </Link>
           ))}
         </div>
