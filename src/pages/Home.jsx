@@ -1,58 +1,18 @@
-import { products } from "../data/products";
-
-/* import { useState } from "react"; */
-/* import { categories as allCategories } from "../data/categories"; */
+import { Link } from "react-router-dom";
 import ProductList from "../components/ProductList.jsx";
-import SearchBox from "../components/searchbox.jsx";
+import SearchBox from "../components/SearchBox.jsx";
+import { useProducts } from "../hooks/useProducts";
 /* import { useState } from "react"; */
 import "../index.css";
 
 function Home() {
-  /* const [search, setSearch] = useState(""); */
-  /* const [selectedCategory, setSelectedCategory] = useState("Vinilo"); */
- /*  const [sortBy, setSortBy] = useState("default");
- */
-  // Empieza con vinilos y aplica filtros
-  /* let filteredProducts = products.slice(); */
-
-/*   if (search) {
-    filteredProducts = filteredProducts.filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase()) ||
-      (product.artist && product.artist.toLowerCase().includes(search.toLowerCase()))
-    );
-  }
-
-  if (selectedCategory && selectedCategory !== "Vinilo") {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.category === selectedCategory
-    );
-  }  */
-
-  // Ordenamientos
-  /* let sortedProducts = filteredProducts.slice();
-  if (sortBy === "az") {
-    sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortBy === "newest") {
-    sortedProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  } else if (sortBy === "oldest") {
-    sortedProducts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-  } else if (sortBy === "low") {
-    sortedProducts.sort((a, b) => a.price - b.price);
-  } else if (sortBy === "high") {
-    sortedProducts.sort((a, b) => b.price - a.price);
-  } */
-
-   /* const [search, setSearch] = useState(""); */
+  const { products } = useProducts();
   const featuredProducts = products.filter((product) => product.featured);
 
   const newProducts = products
     .slice()
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3);
-
-/*   const hasResults = filteredProducts.length > 0;
-
-  const categories = allCategories; */
 
   return (
     <main>
@@ -85,8 +45,12 @@ function Home() {
           </p>
 
           <div className="hero-actions">
-            <a className="button" href="#">Explorar discos</a>
-            <a className="button" href="#">Suscríbete a novedades</a>
+            <Link className="button" to="/discos">
+              Explorar discos
+            </Link>
+            <Link className="button" to="/discos">
+              Ver novedades
+            </Link>
           </div>
         </div>
       </section>

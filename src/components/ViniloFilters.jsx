@@ -19,9 +19,10 @@ function ViniloFilters({ search, onSearchChange, selectedCategory, setCategoryCh
             value={selectedCategory}
             onChange={(e) => setCategoryChange(e.target.value)}
           >
+            <option value="Vinilo">Todas las categorías</option>
             {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
+              <option key={category.id} value={category.name}>
+                {category.name}
               </option>
             ))}
           </select>

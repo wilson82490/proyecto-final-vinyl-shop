@@ -6,9 +6,10 @@
 export default ViniloDetailPage; */
 
 import { Link, useParams } from "react-router-dom";
-import { products } from "../data/products";
+import { useProducts } from "../hooks/useProducts";
 
 function ViniloDetailPage() {
+  const { products } = useProducts();
   const { id } = useParams();
 
   const vinilo = products.find((v) => v.id === Number(id)); // Comparación segura de tipos
@@ -19,8 +20,8 @@ function ViniloDetailPage() {
         <section className="catalog-section">
           <div className="container">
             <h1>Contenido no encontrado</h1>
-            <Link className="button" to="/vinilos">
-              Volver al catalogo
+            <Link className="button" to="/discos">
+              Volver al catálogo
             </Link>
           </div>
         </section>

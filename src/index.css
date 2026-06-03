@@ -522,7 +522,7 @@ img {
 .admin-list {
   display: grid;
   gap: 12px;
-  grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr; */
 }
 
 .admin-list-item {
@@ -530,6 +530,14 @@ img {
   border: 1px solid #9e9797;
   border-radius: 8px;
   overflow: hidden;
+  display: grid;
+  /* grid-template-columns: 90px 1fr;
+  gap: 1rem;
+  align-items: center;
+  background-color: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 1rem;
+  padding: 1rem; */
 }
 
 .admin-list-item img{
@@ -541,13 +549,133 @@ img {
   border-radius: 8px;
   max-height: 45vh;
  
-
+/* width: 90px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.75rem; */
 }
+
 
 .vinilo-filter {
   display: grid;
   gap: 8px;
   margin-bottom: 24px;
+}
+
+/* Admin Styles*/
+
+.admin-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-section-header p {
+  color: #94a3b8;
+  margin-top: 0.5rem;
+}
+
+.admin-message {
+  padding: 12px 16px;
+  background-color: #166534;
+  border: 1px solid #22c55e;
+  border-radius: 8px;
+  color: #f0fdf4;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  color: #f8fafc;
+}
+
+.modal h3 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.modal-text {
+  margin: 0 0 1.5rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.modal-text strong {
+  color: #f8fafc;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.modal-btn-cancel {
+  background-color: #334155;
+  border-color: #475569;
+}
+
+.modal-btn-cancel:hover {
+  background-color: #475569;
+}
+
+.modal-btn-delete {
+  background-color: #b91c1c;
+  border-color: #ef4444;
+}
+
+.modal-btn-delete:hover {
+  background-color: #dc2626;
+}
+
+.btn-delete {
+  background: #7f2b2b !important;
+  color: #ffffff !important;
+}
+
+.btn-delete:hover {
+  background: #b91c1c !important;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
 }
  
 
@@ -572,8 +700,6 @@ img {
   font-size: 16px;
   transition: all 0.25s ease;
 } */
-
-
 
 
 /* Contenedor que ocupe todo el ancho de la ventana */
@@ -637,6 +763,22 @@ img {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Vinilo Form Styles */
+.vinilo-form {
+  display: grid;
+  gap: 1rem;
+  background-color: #6a7293;
+  border: 1px solid #1e293b;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.4rem;
 }
 
 

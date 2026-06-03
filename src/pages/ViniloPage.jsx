@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { categories as allCategories } from "../data/categories";
-import { products } from "../data/products";
+import { useProducts } from "../hooks/useProducts";
 import ProductList from "../components/ProductList.jsx";
 import ViniloFilters from "../components/ViniloFilters.jsx";
 import useFilteredSortedVinyl from "../hooks/useFilteredSortedVinyl.jsx";
@@ -9,6 +9,7 @@ import useFilteredSortedVinyl from "../hooks/useFilteredSortedVinyl.jsx";
 
 
 function ViniloPage() {
+    const { products } = useProducts();
     const [search, setSearch] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("Vinilo");
     const [sortBy, setSortBy] = useState("default");
