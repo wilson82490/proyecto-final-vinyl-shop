@@ -426,6 +426,78 @@ img {
   background: #428ec7;
 }
 
+/* BOTÓN VER DETALLES */
+.detail-btn {
+  background: rgba(197, 161, 0, 0.18);
+  border: 1px solid rgba(197, 161, 0, 0.5);
+  color: #c5a100;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.detail-btn:hover {
+  background: rgba(197, 161, 0, 0.35);
+  border-color: #c5a100;
+}
+
+/* PÁGINA DE DETALLE */
+.loading-message,
+.error-message {
+  padding: 40px 20px;
+  text-align: center;
+  color: #e8e0c9;
+  font-size: 18px;
+}
+
+.vinilo-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.vinilo-detail img {
+  width: 280px;
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid #c5a10055;
+}
+
+.vinilo-detail-content {
+  flex: 1;
+  min-width: 250px;
+  color: #e8e0c9;
+}
+
+.vinilo-detail-content h1 {
+  color: #fff;
+  margin: 0 0 6px;
+}
+
+.vinilo-detail-content .artist {
+  color: #e6e6e6;
+  margin: 0 0 10px;
+}
+
+.vinilo-detail-content .label {
+  color: #bfbfbf;
+}
+
+.vinilo-detail-content .price {
+  color: #6dd3ff;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.vinilo-detail-content .stock {
+  color: #9ca3af;
+  margin-left: 12px;
+}
+
 
 
 /* MEDIA QUERIES */
