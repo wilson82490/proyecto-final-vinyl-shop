@@ -5,32 +5,31 @@ import ProductList from "../components/ProductList.jsx";
 import ViniloFilters from "../components/ViniloFilters.jsx";
 import useFilteredSortedVinyl from "../hooks/useFilteredSortedVinyl.jsx";
 
-
-
-
 function ViniloPage() {
-    const { products } = useProducts();
-    const [search, setSearch] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("Vinilo");
-    const [sortBy, setSortBy] = useState("default");
-    const { filteredProducts, sortedProducts } = useFilteredSortedVinyl(
-        products,
-        search,
-        selectedCategory,
-        sortBy
-    )
+  const { products, loading, error } = useProducts();
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Vinilo");
+  const [sortBy, setSortBy] = useState("default");
 
 
-    // Empieza con vinilos y aplica filtros
-      
-    
-      // Ordenamientos
-      
 
+  const { filteredProducts, sortedProducts } = useFilteredSortedVinyl(
+    products,
+    search,
+    selectedCategory,
+    sortBy
+  );
 
-       const hasResults = filteredProducts.length > 0;
+  const hasResults = filteredProducts.length > 0;
+  const categories = allCategories;
 
-       const categories = allCategories;
+  if (loading) {
+    return <p className="empty-message">Cargando Vinilos...</p>;
+  }
+
+  if (error) {
+    return <p className="empty-error">{error}</p>;
+  }
 
     return (
         <main>

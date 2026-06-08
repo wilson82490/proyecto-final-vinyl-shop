@@ -9,6 +9,7 @@ function AdminVinilosPage() {
   const [selectedVinilo, setSelectedVinilo] = useState(null);
   const [viniloToDelete, setViniloToDelete] = useState(null);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const closeForm = () => {
     setShowForm(false);
@@ -20,23 +21,48 @@ function AdminVinilosPage() {
     setTimeout(() => setMessage(""), 4000);
   };
 
-  const handleCreateVinilo = (viniloData) => {
-    addProduct(viniloData);
-    closeForm();
-    showSuccessMessage("Vinilo creado correctamente");
+  const handleCreateVinilo = async (viniloData) => {
+    try {
+      setIsLoading(true);
+      await addProduct(viniloData);
+      closeForm();
+      showSuccessMessage("Vinilo creado correctamente");
+    } catch (error) {
+      console.error("Error al crear vinilo:", error);
+      setMessage("Error al crear el vinilo");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!viniloToDelete) return;
-    deleteProduct(viniloToDelete.id);
-    setViniloToDelete(null);
-    showSuccessMessage("Vinilo eliminado correctamente");
+    try {
+      setIsLoading(true);
+      await deleteProduct(viniloToDelete.id);
+      setViniloToDelete(null);
+      showSuccessMessage("Vinilo eliminado correctamente");
+    } catch (error) {
+      console.error("Error al eliminar vinilo:", error);
+      setMessage("Error al eliminar el vinilo");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleUpdateVinilo = (viniloId, viniloData) => {
-    updateProduct(viniloId, viniloData);
-    closeForm();
-    showSuccessMessage("Vinilo actualizado correctamente");
+  const handleUpdateVinilo = async (viniloId, viniloData) => {
+    try {
+      setIsLoading(true);
+      await updateProduct(viniloId, viniloData);
+      closeForm();
+      showSuccessMessage("Vinilo actualizado correctamente");
+    } catch (error) {
+      console.error("Error al actualizar vinilo:", error);
+      setMessage("Error al actualizar el vinilo");
+    } finally {
+      setIsLoading(false);
+    }disabled={isLoading}
+          
   };
 
   return (
@@ -55,6 +81,7 @@ function AdminVinilosPage() {
       <div className="admin-section-header">
         <div>
           <h2>Admin Vinilos</h2>
+          isLoading={isLoading}
           <p>Listado interno de vinilos</p>
         </div>
         <button
@@ -95,8 +122,7 @@ function AdminVinilosPage() {
 
               <div className="admin-actions">
                 <button
-                  type="button"
-                  className="add-btn"
+                  disabled={isLoading}
                   onClick={() => {
                     setSelectedVinilo(product);
                     setShowForm(true);
@@ -105,6 +131,9 @@ function AdminVinilosPage() {
                   Editar
                 </button>
                 <button
+                  type="button"
+                  className="detail-btn btn-delete"
+                  disabled={isLoading}
                   type="button"
                   className="detail-btn btn-delete"
                   onClick={() => setViniloToDelete(product)}
