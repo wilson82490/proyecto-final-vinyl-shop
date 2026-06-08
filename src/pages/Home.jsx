@@ -1,16 +1,26 @@
-import { products } from "../data/products";
 import { categories as allCategories } from "../data/categories";
 import ProductList from "../components/ProductList.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getVinyls } from "../services/api";
 import "../index.css";
 
 function Home() {
+  const [vinyls, setVinyls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [sortBy, setSortBy] = useState("default");
 
+  useEffect(() => {
+    getVinyls()
+      .then(setVinyls)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
   // Empieza con todos los productos y aplica filtros
-  let filteredProducts = products.slice();
+  let filteredProducts = vinyls.slice();
 
   if (search) {
     filteredProducts = filteredProducts.filter((product) =>
@@ -40,9 +50,9 @@ function Home() {
   }
 
   
-  const featuredProducts = products.filter((product) => product.featured);
+  const featuredProducts = vinyls.filter((product) => product.featured);
 
-  const newProducts = products
+  const newProducts = vinyls
     .slice()
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3);
@@ -50,6 +60,14 @@ function Home() {
   const hasResults = filteredProducts.length > 0;
 
   const categories = allCategories;
+
+  if (loading) {
+    return <p className="loading-message">Cargando vinilos...</p>;
+  }
+
+  if (error) {
+    return <p className="error-message">{error}</p>;
+  }
 
   return (
     <main>
