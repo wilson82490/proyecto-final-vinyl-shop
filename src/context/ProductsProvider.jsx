@@ -6,7 +6,7 @@ import {
   createVinyl,
   updateVinyl,
   deleteVinyl,
-} from "../services/vinyls.Service";
+} from "../services/vinylsService";
 
 export function ProductsProvider({ children }) {
   const [products, setProducts] = useState(initialProducts);
@@ -19,7 +19,26 @@ export function ProductsProvider({ children }) {
       try {
         setLoading(true);
         setError(null);
-        const data = await getVinyls();
+        let data = await getVinyls();
+        console.log("API DATA:", data);
+        // Normalizar productos: asegurar propiedades necesarias
+        data = data.map((product, index) => ({
+          id: product._id || index + 1,
+          name: product.name || "Sin nombre",
+          artist: product.artist || "Artista desconocido",
+          price: product.price || 0,
+          image: product.image || "",
+          category: product.category || "Vinilo",
+          featured: product.featured !== undefined ? product.featured : (index < 3), // Primeros 3 como destacados
+          createdAt: product.createdAt || new Date().toISOString().slice(0, 10),
+          year: product.year || new Date().getFullYear(),
+          description: product.description || "",
+          label: product.label || "",
+          format: product.format || 'Vinilo 12" LP',
+          stock: product.stock || 0,
+          ...product, // Mantener otras propiedades
+        }));
+        
         setProducts(data);
       } catch (err) {
         console.error("Error cargando productos:", err);

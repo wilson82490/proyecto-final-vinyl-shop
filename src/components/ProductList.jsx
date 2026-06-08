@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard";
+/* import ProductCard from "./ProductCard";
 
 function ProductList({ products }) {
   return (
@@ -10,4 +10,18 @@ function ProductList({ products }) {
   );
 }
 
-export default ProductList
+export default ProductList */
+
+import ProductCard from "./ProductCard";
+
+function ProductList({ products }) {
+  return (
+    <div className="product-list">
+      {products.map((product) => (
+        <ProductCard key={product._id} product={product} />
+      ))}
+    </div>
+  );
+}
+
+export default ProductList;
