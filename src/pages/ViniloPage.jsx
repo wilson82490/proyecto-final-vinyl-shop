@@ -1,109 +1,67 @@
-/* import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { categories as allCategories } from "../data/categories";
 import { useProducts } from "../hooks/useProducts";
-import ProductList from "../components/ProductList.jsx";
-import ViniloFilters from "../components/ViniloFilters.jsx";
-import useFilteredSortedVinyl from "../hooks/useFilteredSortedVinyl.jsx";
+import ProductList from "../components/ProductList";
+import ViniloFilters from "../components/ViniloFilters";
+import useFilteredSortedVinyl from "../hooks/useFilteredSortedVinyl";
 
 function ViniloPage() {
   const { products, loading, error } = useProducts();
+  const [searchParams] = useSearchParams();
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Vinilo");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [priceSort, setPriceSort] = useState("");
   const [sortBy, setSortBy] = useState("default");
 
+  const handlePriceSortChange = (value) => {
+    setPriceSort(value);
+    if (value) setSortBy("default");
+  };
 
+  const handleSortByChange = (value) => {
+    setSortBy(value);
+    if (value !== "default") setPriceSort("");
+  };
 
-  const { filteredProducts, sortedProducts } = useFilteredSortedVinyl(
-    products,
-    search,
-    selectedCategory,
-    sortBy
-  );
-
-  const hasResults = filteredProducts.length > 0;
-  const categories = allCategories;
-
-  if (loading) {
-    return <p className="empty-message">Cargando Vinilos...</p>;
-  }
-
-  if (error) {
-    return <p className="empty-error">{error}</p>;
-  }
-
-    return (
-        <main>
-           <section className="catalog-section">
-        <div className="container">
-          <ViniloFilters
-            search={search}
-            onSearchChange={setSearch}
-            selectedCategory={selectedCategory}
-            setCategoryChange={setSelectedCategory}
-            sortBy={sortBy}
-            onSortByChange={setSortBy}
-            categories={categories}
-          />
-          {search && !hasResults && (
-            <p className="empty-message">
-              No encontramos resultados para "{search}"
-            </p>
-          )}
-          {hasResults && <ProductList products={sortedProducts} />}
-        </div>
-      </section>
-        </main>
-
-    )
-} */
-
-/* import { useState, useEffect } from "react";
-import { categories as allCategories } from "../data/categories";
-import { getVinyls, } from "../services/vinylsService";
-import ProductList from "../components/ProductList";
-import ViniloFilters from "../components/ViniloFilters";
-import useFilteredSortedVinyl from "../hooks/useFilteredSortedVinyl";
-
-function ViniloPage() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Vinilo");
-  const [sortBy, setSortBy] = useState("default");
+  const handleResetFilters = () => {
+    setSearch("");
+    setSelectedCategory("all");
+    setPriceSort("");
+    setSortBy("default");
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
+    const categoryFromUrl = searchParams.get("category");
+    if (!categoryFromUrl) return;
 
-        const data = await getVinyls();
+    const categoryExists = allCategories.some(
+      (entry) => entry.name === categoryFromUrl
+    );
 
-        setProducts(data);
-        setError("");
-      } catch (err) {
-        setError(err.message || "Error al cargar los vinilos");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+    if (categoryFromUrl === "all" || categoryExists) {
+      setSelectedCategory(categoryFromUrl);
+    }
+  }, [searchParams]);
 
   const { filteredProducts, sortedProducts } = useFilteredSortedVinyl(
     products,
     search,
     selectedCategory,
+    priceSort,
     sortBy
   );
 
+  const hasActiveFilters =
+    search.trim() !== "" ||
+    selectedCategory !== "all" ||
+    priceSort !== "" ||
+    sortBy !== "default";
+
   const hasResults = filteredProducts.length > 0;
-  const categories = allCategories;
 
   if (loading) {
-    return <p className="empty-message">Cargando Vinilos...</p>;
+    return <p className="empty-message">Cargando vinilos...</p>;
   }
 
   if (error) {
@@ -114,91 +72,34 @@ function ViniloPage() {
     <main>
       <section className="catalog-section">
         <div className="container">
+          <h2>Catálogo de Discos</h2>
+
           <ViniloFilters
             search={search}
             onSearchChange={setSearch}
             selectedCategory={selectedCategory}
-            setCategoryChange={setSelectedCategory}
+            onCategoryChange={setSelectedCategory}
+            priceSort={priceSort}
+            onPriceSortChange={handlePriceSortChange}
             sortBy={sortBy}
-            onSortByChange={setSortBy}
-            categories={categories}
-          />
-
-          {search && !hasResults && (
-            <p className="empty-message">
-              No encontramos resultados para "{search}"
-            </p>
-          )}
-
-          {hasResults && (
-            <ProductList products={sortedProducts} />
-          )}
-        </div>
-      </section>
-    </main>
-  );
-}
-
-export default ViniloPage;
- */
-
-
-
-
-import { useContext, useState } from "react";
-import { ProductsContext } from "../context/products-context";
-import { categories as allCategories } from "../data/categories";
-import ProductList from "../components/ProductList";
-import ViniloFilters from "../components/ViniloFilters";
-import useFilteredSortedVinyl from "../hooks/useFilteredSortedVinyl";
-
-function ViniloPage() {
-  const { products, loading, error } = useContext(ProductsContext);
-
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Vinilo");
-  const [sortBy, setSortBy] = useState("default");
-
-  const { filteredProducts, sortedProducts } = useFilteredSortedVinyl(
-    products,
-    search,
-    selectedCategory,
-    sortBy
-  );
-
-  const hasResults = filteredProducts.length > 0;
-
-  if (loading) {
-    return <p className="empty-message">Cargando Vinilos...</p>;
-  }
-
-  if (error) {
-    return <p className="empty-error">{error}</p>;
-  }
-
-  return (
-    <main>
-      <section className="catalog-section">
-        <div className="container">
-          <ViniloFilters
-            search={search}
-            onSearchChange={setSearch}
-            selectedCategory={selectedCategory}
-            setCategoryChange={setSelectedCategory}
-            sortBy={sortBy}
-            onSortByChange={setSortBy}
+            onSortByChange={handleSortByChange}
+            onReset={handleResetFilters}
             categories={allCategories}
           />
 
-          {search && !hasResults && (
+          {!hasResults && hasActiveFilters && (
             <p className="empty-message">
-              No encontramos resultados para "{search}"
+              No encontramos resultados
+              {search.trim() ? ` para "${search.trim()}"` : ""}
+              {selectedCategory !== "all" ? ` en ${selectedCategory}` : ""}.
             </p>
           )}
 
-          {hasResults && (
-            <ProductList products={sortedProducts} />
+          {!hasResults && !hasActiveFilters && (
+            <p className="empty-message">No hay vinilos disponibles.</p>
           )}
+
+          {hasResults && <ProductList products={sortedProducts} />}
         </div>
       </section>
     </main>

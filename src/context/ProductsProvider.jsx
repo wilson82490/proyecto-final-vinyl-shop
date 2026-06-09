@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { products as mockProducts } from "../data/products";
 import { ProductsContext } from "./products-context";
 import {
   getVinyls,
@@ -7,23 +8,20 @@ import {
   deleteVinyl,
 } from "../services/vinylServices";
 
-// 🔥 NORMALIZZATORE UNICO
 const normalize = (product) => ({
-  id: product._id,
-  name: product.title,
+  id: product._id || product.id,
+  name: product.name || product.title || "Sin nombre",
   artist: product.artist || "Artista desconocido",
-  price: product.price || 0,
+  price: product.price ?? 0,
   image: product.image || "",
-  category: product.genre || "Vinilo",
-
-  featured: product.featured ?? product.feature ?? false, // 👈 FIX IMPORTANTE
-
-  createdAt: product.createdAt,
+  category: product.category || product.genre || "Vinilo",
+  featured: product.featured ?? product.feature ?? false,
+  createdAt: product.createdAt || new Date().toISOString(),
   year: product.year || null,
   description: product.description || "",
   label: product.label || "",
   format: product.format || 'Vinilo 12" LP',
-  stock: product.stock || 0,
+  stock: product.stock ?? 0,
 });
 
 export function ProductsProvider({ children }) {
@@ -41,12 +39,12 @@ export function ProductsProvider({ children }) {
         setError(null);
 
         const data = await getVinyls();
-        const normalized = data.map(normalize);
-
+        const normalized = Array.isArray(data) ? data.map(normalize) : [];
         setProducts(normalized);
       } catch (err) {
         console.error("Error cargando productos:", err);
         setError(err.message);
+        setProducts(mockProducts);
       } finally {
         setLoading(false);
       }

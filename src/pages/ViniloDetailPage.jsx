@@ -1,18 +1,12 @@
-/* function ViniloDetailPage() {
-    return;
-}
-
-
-export default ViniloDetailPage; */
-
 import { Link, useParams } from "react-router-dom";
 import { useProducts } from "../hooks/useProducts";
+import AddToCartButton from "../components/AddToCartButton";
 
 function ViniloDetailPage() {
   const { products } = useProducts();
   const { id } = useParams();
 
-  const vinilo = products.find((v) => v.id === Number(id)); // Comparación segura de tipos
+  const vinilo = products.find((v) => String(v.id) === String(id));
 
   if (!vinilo) {
     return (
@@ -38,16 +32,25 @@ function ViniloDetailPage() {
 
             <div className="vinilo-detail-content">
               <h1>{vinilo.name}</h1>
-              <p>Genero: {vinilo.category}</p>
+              <p>Artista: {vinilo.artist}</p>
+              <p>Género: {vinilo.category}</p>
               <span>Año: {vinilo.year}</span>
+              <p className="vinilo-detail-price">{vinilo.price} €</p>
+              <p className={vinilo.stock > 0 ? "stock-available" : "stock-out"}>
+                {vinilo.stock > 0
+                  ? `${vinilo.stock} en stock`
+                  : "Agotado"}
+              </p>
               <p>{vinilo.description}</p>
+
+              <AddToCartButton product={vinilo} variant="detail" />
             </div>
           </article>
         </div>
 
         <div className="container">
           <Link className="button" to="/discos">
-            Volver al catalogo
+            Volver al catálogo
           </Link>
         </div>
       </section>

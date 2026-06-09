@@ -4,6 +4,9 @@ import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home';
 import ViniloPage from '../pages/ViniloPage';
 import ViniloDetailPage from '../pages/ViniloDetailPage';
+import CartPage from '../pages/CartPage';
+import RegisterPage from '../pages/RegisterPage';
+import LoginPage from '../pages/LoginPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import AdminLayout from '../layouts/AdminLayout';
 import AdminVinilosPage from '../pages/admin/AdminVinilosPage';
@@ -32,6 +35,21 @@ export const router = createBrowserRouter([
             {
                 path: "vinilos/:id",
                 element: <ViniloDetailPage />
+            }
+            ,
+            {
+                path: "carrito",
+                element: <CartPage />
+            }
+            ,
+            {
+                path: "registro",
+                element: <RegisterPage />
+            }
+            ,
+            {
+                path: "login",
+                element: <LoginPage />
             }
             ,
             {

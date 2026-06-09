@@ -15,7 +15,9 @@ function AdminLayout() {
           </div>
 
           <nav className="admin-nav">
+            <Link to="/admin">Dashboard</Link>
             <Link to="/admin/vinilos">Vinilos</Link>
+            <Link to="/carrito">Carrito</Link>
             <Link to="/discos">Ver sitio publico</Link>
           </nav>
 

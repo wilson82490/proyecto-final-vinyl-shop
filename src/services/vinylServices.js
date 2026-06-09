@@ -14,7 +14,7 @@ export const getVinyls = async () => {
 };
  */
 
-const API_URL = "http://localhost:3000/api/vinyls";
+const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/vinyls`;
 
 export const getVinyls = async () => {
   const response = await fetch(API_URL);

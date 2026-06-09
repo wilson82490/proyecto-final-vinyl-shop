@@ -62,7 +62,6 @@ function AdminVinilosPage() {
     } finally {
       setIsLoading(false);
     }
-          
   };
 
   return (
@@ -81,7 +80,6 @@ function AdminVinilosPage() {
       <div className="admin-section-header">
         <div>
           <h2>Admin Vinilos</h2>
-          isLoading={isLoading}
           <p>Listado interno de vinilos</p>
         </div>
         <button
@@ -113,15 +111,20 @@ function AdminVinilosPage() {
       <div className="admin-list">
         {products.map((product) => (
           <article className="admin-list-item" key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <div>
-              <h3>{product.title}</h3>
+            <div className="admin-list-item-image">
+              <img src={product.image} alt={product.name} />
+            </div>
+            <div className="admin-list-item-content">
+              <h3>{product.name}</h3>
               <p>
                 {product.artist} ({product.year})
               </p>
+              <p className="admin-list-item-category">{product.category}</p>
 
               <div className="admin-actions">
                 <button
+                  type="button"
+                  className="button btn-edit"
                   disabled={isLoading}
                   onClick={() => {
                     setSelectedVinilo(product);
@@ -132,10 +135,8 @@ function AdminVinilosPage() {
                 </button>
                 <button
                   type="button"
-                  className="detail-btn btn-delete"
+                  className="button btn-delete"
                   disabled={isLoading}
-                  type="button"
-                  className="detail-btn btn-delete"
                   onClick={() => setViniloToDelete(product)}
                 >
                   Eliminar

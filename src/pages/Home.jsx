@@ -5,14 +5,19 @@ import { useProducts } from "../hooks/useProducts";
 import "../index.css";
 
 function Home() {
-  const { products } = useProducts();
-  const featuredProducts = products.filter(
-    (product) => product.featured === true
-  );
+  const { products, loading, error } = useProducts();
+
+  const featuredFromDb = products.filter((product) => product.featured);
+  const featuredProducts =
+    featuredFromDb.length > 0 ? featuredFromDb : products.slice(0, 2);
 
   const newProducts = [...products]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3);
+
+  if (loading) {
+    return <p className="loading-message">Cargando vinilos...</p>;
+  }
 
   return (
     <main>
@@ -42,11 +47,21 @@ function Home() {
         </div>
       </section>
 
+      {error && (
+        <p className="error-message" role="alert">
+          No se pudo conectar con la API. Mostrando datos locales.
+        </p>
+      )}
+
       <section className="featured-section">
         <div className="container">
           <h2>· Vinilos Destacados·</h2>
 
-          <ProductList products={featuredProducts} />
+          {featuredProducts.length > 0 ? (
+            <ProductList products={featuredProducts} />
+          ) : (
+            <p className="empty-message">No hay vinilos destacados.</p>
+          )}
         </div>
       </section>
 
@@ -54,7 +69,11 @@ function Home() {
         <div className="container">
           <h2>· Novedades ·</h2>
 
-          <ProductList products={newProducts} />
+          {newProducts.length > 0 ? (
+            <ProductList products={newProducts} />
+          ) : (
+            <p className="empty-message">No hay novedades disponibles.</p>
+          )}
         </div>
       </section>
     </main>
