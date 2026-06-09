@@ -1,85 +1,29 @@
-import { categories as allCategories } from "../data/categories";
+import { Link } from "react-router-dom";
 import ProductList from "../components/ProductList.jsx";
-import { useState, useEffect } from "react";
-import { getVinyls } from "../services/api";
+import SearchBox from "../components/SearchBox.jsx";
+import { useProducts } from "../hooks/useProducts";
 import "../index.css";
 
 function Home() {
-  const [vinyls, setVinyls] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
-  const [sortBy, setSortBy] = useState("default");
+  const { products } = useProducts();
+  const featuredProducts = products.filter(
+    (product) => product.featured === true
+  );
 
-  useEffect(() => {
-    getVinyls()
-      .then(setVinyls)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  // Empieza con todos los productos y aplica filtros
-  let filteredProducts = vinyls.slice();
-
-  if (search) {
-    filteredProducts = filteredProducts.filter((product) =>
-      product.name.toLowerCase().includes(search.toLowerCase()) ||
-      (product.artist && product.artist.toLowerCase().includes(search.toLowerCase()))
-    );
-  }
-
-  if (selectedCategory && selectedCategory !== "Todos") {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.category === selectedCategory
-    );
-  }
-
-  // Ordenamientos
-  let sortedProducts = filteredProducts.slice();
-  if (sortBy === "az") {
-    sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortBy === "newest") {
-    sortedProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  } else if (sortBy === "oldest") {
-    sortedProducts.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-  } else if (sortBy === "low") {
-    sortedProducts.sort((a, b) => a.price - b.price);
-  } else if (sortBy === "high") {
-    sortedProducts.sort((a, b) => b.price - a.price);
-  }
-
-  
-  const featuredProducts = vinyls.filter((product) => product.featured);
-
-  const newProducts = vinyls
-    .slice()
+  const newProducts = [...products]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3);
-
-  const hasResults = filteredProducts.length > 0;
-
-  const categories = allCategories;
-
-  if (loading) {
-    return <p className="loading-message">Cargando vinilos...</p>;
-  }
-
-  if (error) {
-    return <p className="error-message">{error}</p>;
-  }
 
   return (
     <main>
       <section className="hero">
         <div className="container">
           <img
-            src="/images/logoEncabezado.svg"
+            src="/images/logo-header.png"
             alt="Logo Vinyl Corner"
             className="hero-logo"
           />
-
-        
+          <SearchBox products={products} />
 
           <h1 className="hero-title">Vinyl Corner — Tu tienda de discos</h1>
 
@@ -87,61 +31,14 @@ function Home() {
             Compra vinilos originales, reediciones y joyas para coleccionistas.
           </p>
 
-          <a className="button" href="#">Explorar discos</a>
-          <a className="button" href="#">Suscríbete a novedades</a>
-        </div>
-      </section>
-
-      <section className="catalog-section">
-        <div className="container">
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Buscar productos..."
-            name="search"
-            id="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <select
-            className="category-select"
-            name="category"
-            id="category"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <select
-            className="filter-price"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="">Precio</option>
-            <option value="low">Menor a mayor</option>
-            <option value="high">Mayor a menor</option>
-          </select>
-          <select
-            className="filter-price"
-            value={sortBy}
-            onChange={(event) => setSortBy(event.target.value)}
-          >
-            <option value="default">Orden por defecto</option>
-            <option value="az">A-Z</option>
-            <option value="newest">Más nuevo</option>
-            <option value="oldest">Más viejo</option>
-          </select>
-
-          {search && !hasResults && (
-            <p className="empty-message">
-              No encontramos resultados para "{search}"
-            </p>
-          )}
-          {hasResults && <ProductList products={sortedProducts} />}
+          <div className="hero-actions">
+            <Link className="button" to="/discos">
+              Explorar discos
+            </Link>
+            <Link className="button" to="/discos">
+              Ver novedades
+            </Link>
+          </div>
         </div>
       </section>
 
