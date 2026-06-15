@@ -10,39 +10,45 @@ import {
 } from "../services/authService";
 
 export function AuthProvider({ children }) {
+  const initialToken = getToken();
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(() => getToken());
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(initialToken);
+  const [loading, setLoading] = useState(Boolean(initialToken));
 
   const logout = useCallback(() => {
     clearToken();
     setToken(null);
     setUser(null);
-  }, []);
-
-  const hydrateUser = useCallback(async (activeToken) => {
-    if (!activeToken) {
-      setUser(null);
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const profile = await getMe(activeToken);
-      setUser(profile);
-    } catch (error) {
-      console.error(error);
-      clearToken();
-      setToken(null);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    hydrateUser(token);
-  }, [token, hydrateUser]);
+    if (!token) return;
+
+    let isCancelled = false;
+
+    const hydrateUser = async () => {
+      try {
+        const profile = await getMe(token);
+        if (!isCancelled) setUser(profile);
+      } catch (error) {
+        console.error(error);
+        if (!isCancelled) {
+          clearToken();
+          setToken(null);
+          setUser(null);
+        }
+      } finally {
+        if (!isCancelled) setLoading(false);
+      }
+    };
+
+    hydrateUser();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [token]);
 
   const login = async (email, password) => {
     const data = await loginUser({ email, password });

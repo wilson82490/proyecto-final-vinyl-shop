@@ -18,9 +18,9 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-        <img src="/images/logoNavbar.svg" alt="Logo Vinilos" />
-      </div>
+      <Link to="/" className="navbar-logo" onClick={closeMenu}>
+        <img src="/images/logoNavbar.svg" alt="Logo Vinyl Corner" />
+      </Link>
 
       <button
         className={`navbar-menu-toggle ${isMenuOpen ? "active" : ""}`}
@@ -38,7 +38,7 @@ function Navbar() {
 
       <div className={`navbar-left ${isMenuOpen ? "open" : ""}`}>
         <Link to="/" onClick={closeMenu}>Inicio</Link>
-        <Link to="/discos" onClick={closeMenu}>Discos</Link>
+        <Link to="/discos" onClick={closeMenu}>Catalogo</Link>
         <div className="navbar-categories">
           <button
             type="button"

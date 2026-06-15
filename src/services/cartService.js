@@ -1,4 +1,6 @@
-const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/cart`;
+import { getApiBaseUrl, handleResponse } from "./http";
+
+const API_URL = `${getApiBaseUrl()}/api/cart`;
 
 const getHeaders = (sessionId) => ({
   "Content-Type": "application/json",
@@ -21,12 +23,7 @@ export const fetchCart = async (sessionId) => {
   const response = await fetch(API_URL, {
     headers: getHeaders(sessionId),
   });
-
-  if (!response.ok) {
-    throw new Error("Error al obtener el carrito");
-  }
-
-  return response.json();
+  return handleResponse(response, "Error al obtener el carrito");
 };
 
 export const addToCart = async (sessionId, vinylId, quantity = 1) => {
@@ -36,12 +33,7 @@ export const addToCart = async (sessionId, vinylId, quantity = 1) => {
     body: JSON.stringify({ sessionId, vinylId, quantity }),
   });
 
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.message || "Error al agregar al carrito");
-  }
-
-  return data;
+  return handleResponse(response, "Error al agregar al carrito");
 };
 
 export const updateCartItem = async (sessionId, vinylId, quantity) => {
@@ -51,12 +43,7 @@ export const updateCartItem = async (sessionId, vinylId, quantity) => {
     body: JSON.stringify({ sessionId, quantity }),
   });
 
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.message || "Error al actualizar el carrito");
-  }
-
-  return data;
+  return handleResponse(response, "Error al actualizar el carrito");
 };
 
 export const removeFromCart = async (sessionId, vinylId) => {
@@ -66,12 +53,7 @@ export const removeFromCart = async (sessionId, vinylId) => {
     body: JSON.stringify({ sessionId }),
   });
 
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.message || "Error al eliminar del carrito");
-  }
-
-  return data;
+  return handleResponse(response, "Error al eliminar del carrito");
 };
 
 export const clearCart = async (sessionId) => {
@@ -81,10 +63,5 @@ export const clearCart = async (sessionId) => {
     body: JSON.stringify({ sessionId }),
   });
 
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.message || "Error al vaciar el carrito");
-  }
-
-  return data;
+  return handleResponse(response, "Error al vaciar el carrito");
 };

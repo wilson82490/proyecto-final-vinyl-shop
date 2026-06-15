@@ -23,14 +23,16 @@ function Home() {
     <main>
       <section className="hero">
         <div className="container">
-          <img
-            src="/images/logo-header.png"
-            alt="Logo Vinyl Corner"
-            className="hero-logo"
-          />
+          <div className="hero-logo-wrap">
+            <img
+              src="/images/logoEncabezadero.png"
+              alt="Logo Vinyl Corner"
+              className="hero-logo"
+            />
+          </div>
           <SearchBox products={products} />
 
-          <h1 className="hero-title">Vinyl Corner — Tu tienda de discos</h1>
+          <h1 className="hero-title">Mezcal Records — Tu tienda de discos</h1>
 
           <p className="hero-description">
             Compra vinilos originales, reediciones y joyas para coleccionistas.

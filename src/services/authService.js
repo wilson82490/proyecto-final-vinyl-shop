@@ -1,4 +1,6 @@
-const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/auth`;
+import { getApiBaseUrl, handleResponse } from "./http";
+
+const API_URL = `${getApiBaseUrl()}/api/auth`;
 const TOKEN_KEY = "vinyl_auth_token";
 
 export const registerUser = async (payload) => {
@@ -10,13 +12,7 @@ export const registerUser = async (payload) => {
     body: JSON.stringify(payload),
   });
 
-  const data = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    throw new Error(data.message || "Error al registrar usuario");
-  }
-
-  return data;
+  return handleResponse(response, "Error al registrar usuario");
 };
 
 export const loginUser = async (payload) => {
@@ -28,13 +24,7 @@ export const loginUser = async (payload) => {
     body: JSON.stringify(payload),
   });
 
-  const data = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    throw new Error(data.message || "Error al iniciar sesión");
-  }
-
-  return data;
+  return handleResponse(response, "Error al iniciar sesión");
 };
 
 export const getMe = async (token) => {
@@ -44,12 +34,7 @@ export const getMe = async (token) => {
     },
   });
 
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(data.message || "Error al obtener sesión");
-  }
-
-  return data;
+  return handleResponse(response, "Error al obtener sesión");
 };
 
 export const saveToken = (token) => {

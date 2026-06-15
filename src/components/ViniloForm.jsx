@@ -2,15 +2,15 @@ import { useState } from "react";
 import { categories } from "../data/categories";
 
 const initialForm = {
- title: "",
+  name: "",
   artist: "",
   year: "",
   description: "",
-  genre: "",
+  category: "",
   image: "",
   price: "",
   stock: "",
-  feature: false,
+  featured: false,
 };
 
 function getFormState(vinilo) {
@@ -35,11 +35,16 @@ function ViniloForm({ onCreateVinilo, onUpdateVinilo, vinilo, onCancel }) {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!form.name.trim()) {
+    if (!form.name?.trim()) {
       alert("El nombre es obligatorio");
+      return;
+    }
+
+    if (!form.artist?.trim()) {
+      alert("El artista es obligatorio");
       return;
     }
 
@@ -63,20 +68,36 @@ function ViniloForm({ onCreateVinilo, onUpdateVinilo, vinilo, onCancel }) {
       return;
     }
 
-    const year = form.year ? Number(form.year) : null;
-    if (year && (year < 1900 || year > new Date().getFullYear())) {
+    const year = Number(form.year);
+    if (!year || year < 1900 || year > new Date().getFullYear()) {
       alert("Ingresa un año válido");
       return;
     }
 
-    if (isEditing) {
-      onUpdateVinilo(vinilo.id, form);
-    } else {
-      onCreateVinilo(form);
-    }
+    const payload = {
+      ...form,
+      name: form.name.trim(),
+      artist: form.artist.trim(),
+      description: form.description.trim(),
+      category: form.category,
+      year,
+      price: Number(form.price),
+      stock: Number(form.stock || 0),
+      featured: Boolean(form.featured),
+    };
 
-    setForm(initialForm);
-    onCancel?.();
+    try {
+      if (isEditing) {
+        await onUpdateVinilo(vinilo.id, payload);
+      } else {
+        await onCreateVinilo(payload);
+      }
+
+      setForm(initialForm);
+      onCancel?.();
+    } catch {
+      // El mensaje de error se muestra en AdminVinilosPage.
+    }
   };
 
   return (
@@ -87,9 +108,20 @@ function ViniloForm({ onCreateVinilo, onUpdateVinilo, vinilo, onCancel }) {
         <label htmlFor="name">Nombre:</label>
         <input
           type="text"
-          id="title"
-          name="title"
-          value={form.title}
+          id="name"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="artist">Artista:</label>
+        <input
+          type="text"
+          id="artist"
+          name="artist"
+          value={form.artist}
           onChange={handleChange}
         />
       </div>
@@ -111,6 +143,8 @@ function ViniloForm({ onCreateVinilo, onUpdateVinilo, vinilo, onCancel }) {
           id="price"
           name="price"
           value={form.price}
+          min="0"
+          step="0.01"
           onChange={handleChange}
         />
       </div>
@@ -139,6 +173,18 @@ function ViniloForm({ onCreateVinilo, onUpdateVinilo, vinilo, onCancel }) {
           id="year"
           name="year"
           value={form.year}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="stock">Stock:</label>
+        <input
+          type="number"
+          id="stock"
+          name="stock"
+          value={form.stock}
+          min="0"
           onChange={handleChange}
         />
       </div>

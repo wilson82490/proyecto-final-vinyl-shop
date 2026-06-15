@@ -1,29 +1,10 @@
-/* const API_URL = "http://localhost:3000/api/vinyls";
+import { getApiBaseUrl, handleResponse } from "./http";
 
-
-export const getVinyls = async () => {
-    const response = await fetch (API_URL);
-
-    if(!response.ok){
-        throw new Error ("Error al obtener los vinilos");
-    }
-
-    const data = await response.json();
-
-    return data;
-};
- */
-
-const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/vinyls`;
+const API_URL = `${getApiBaseUrl()}/api/vinyls`;
 
 export const getVinyls = async () => {
   const response = await fetch(API_URL);
-
-  if (!response.ok) {
-    throw new Error("Error al obtener los vinilos");
-  }
-
-  return await response.json();
+  return handleResponse(response, "Error al obtener los vinilos");
 };
 
 export const createVinyl = async (vinylData) => {
@@ -35,11 +16,7 @@ export const createVinyl = async (vinylData) => {
     body: JSON.stringify(vinylData),
   });
 
-  if (!response.ok) {
-    throw new Error("Error al crear el vinilo");
-  }
-
-  return await response.json();
+  return handleResponse(response, "Error al crear el vinilo");
 };
 
 export const updateVinyl = async (id, vinylData) => {
@@ -51,21 +28,13 @@ export const updateVinyl = async (id, vinylData) => {
     body: JSON.stringify(vinylData),
   });
 
-  if (!response.ok) {
-    throw new Error("Error al actualizar el vinilo");
-  }
-
-  return await response.json();
+  return handleResponse(response, "Error al actualizar el vinilo");
 };
 
 export const deleteVinyl = async (id) => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
-
-  if (!response.ok) {
-    throw new Error("Error al eliminar el vinilo");
-  }
-
-  return true;
+  await handleResponse(response, "Error al eliminar el vinilo");
+  return { ok: true };
 };

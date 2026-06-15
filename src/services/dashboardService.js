@@ -1,11 +1,8 @@
-const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/dashboard`;
+import { getApiBaseUrl, handleResponse } from "./http";
+
+const API_URL = `${getApiBaseUrl()}/api/dashboard`;
 
 export const getDashboardStats = async () => {
   const response = await fetch(`${API_URL}/stats`);
-
-  if (!response.ok) {
-    throw new Error("Error al obtener estadísticas del dashboard");
-  }
-
-  return response.json();
+  return handleResponse(response, "Error al obtener estadísticas del dashboard");
 };
