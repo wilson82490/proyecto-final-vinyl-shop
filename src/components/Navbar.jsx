@@ -1,19 +1,26 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "../hooks/useCart";
 import { useAuth } from "../hooks/useAuth";
 import { categories } from "../data/categories";
 
 function Navbar() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const { itemCount } = useCart();
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
 
   const closeMenu = () => {
     setIsMenuOpen(false);
     setIsCategoriesOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    closeMenu();
+    navigate("/");
   };
 
   return (
@@ -83,16 +90,15 @@ function Navbar() {
               <button
                 type="button"
                 className="btn-login mobile-link"
-                onClick={() => {
-                  logout();
-                  closeMenu();
-                }}
+                onClick={handleLogout}
               >
                 Cerrar sesión
               </button>
             </>
           )}
-          <Link to="/admin" className="btn-admin mobile-link" onClick={closeMenu}>Admin</Link>
+          {isAuthenticated && isAdmin && (
+            <Link to="/admin" className="btn-admin mobile-link" onClick={closeMenu}>Admin</Link>
+          )}
         </div>
       </div>
 
@@ -109,12 +115,14 @@ function Navbar() {
         ) : (
           <>
             <span className="navbar-user">Hola, {user?.name}</span>
-            <button type="button" className="btn-login" onClick={logout}>
+            <button type="button" className="btn-login" onClick={handleLogout}>
               Cerrar sesión
             </button>
           </>
         )}
-        <Link to="/admin" className="btn-admin">Admin</Link>
+        {isAuthenticated && isAdmin && (
+          <Link to="/admin" className="btn-admin">Admin</Link>
+        )}
       </div>
     </nav>
   );

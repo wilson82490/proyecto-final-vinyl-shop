@@ -54,7 +54,12 @@ export function AuthProvider({ children }) {
     const data = await loginUser({ email, password });
     saveToken(data.token);
     setToken(data.token);
-    setUser({ id: data.id, name: data.name, email: data.email });
+    setUser({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      isAdmin: Boolean(data.isAdmin),
+    });
     return data;
   };
 
@@ -62,7 +67,12 @@ export function AuthProvider({ children }) {
     const data = await registerUser(payload);
     saveToken(data.token);
     setToken(data.token);
-    setUser({ id: data.id, name: data.name, email: data.email });
+    setUser({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      isAdmin: Boolean(data.isAdmin),
+    });
     return data;
   };
 
@@ -72,6 +82,7 @@ export function AuthProvider({ children }) {
       token,
       loading,
       isAuthenticated: Boolean(user && token),
+      isAdmin: Boolean(user?.isAdmin),
       login,
       register,
       logout,

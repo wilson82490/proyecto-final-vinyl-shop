@@ -9,6 +9,7 @@ import RegisterPage from '../pages/RegisterPage';
 import LoginPage from '../pages/LoginPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import AdminLayout from '../layouts/AdminLayout';
+import AdminGuard from '../components/AdminGuard';
 import AdminVinilosPage from '../pages/admin/AdminVinilosPage';
 /* import ProductsPage from '../components/ProductsPage'; */
 import DashboardPage from '../pages/admin/DashboardPage';
@@ -63,8 +64,11 @@ export const router = createBrowserRouter([
 
     {
         path: "/admin",
-        element: <AdminLayout />,
-        children: [
+        element: <AdminGuard />,
+        children: [{
+          path: "",
+          element: <AdminLayout />,
+          children: [
             {
                index: true,
                 element: <DashboardPage />
@@ -75,7 +79,8 @@ export const router = createBrowserRouter([
                 element: <AdminVinilosPage />
             }
           
-        ]
+          ]
+        }]
 
     }
 ]);
